@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--CREATED BY cmoo8675@lps53.org FOR A SCHOOL PROJECT-->
+<!--DO NOT REMOVE THESE COMMENTS-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAI - Chess AI</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <style>
+        .board {
+            background-color: none;
+            width: 75%;
+            height: 100%;
+            border: black 1px solid;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            align: center;
+        }
+        head, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .boarddiv {
+            padding: 0;
+            margin: 0;
+        }
+        .board {
+            width: 75%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border-spacing: 0;
+        }
+        p {
+            padding: 0;
+            margin: 0;
+            font-family: Inconsolata, sans-serif;
+            font-size: 200%;
+            overflow: hidden;
+        }
+        .b {
+            background-color: #404040;
+        }
+        .w {
+            background-color: white;
+        }
+        .w, .b {
+            padding: 0;
+            margin: 0;
+            border: none;
+            width: 93.75;
+            height: 93.75;
+            color: transparent;
+        }
+        .caistats, .playerstats {
+            text-align: center;
+        }
+        .stats {
+            width: 25%;
+            height: 100%;
+            background-color: lightgrey;
+            float: right;
+            border-radius: 5px;
+        }
+        img {
+            width: 93.75;
+            height: 93.75;
+            margin: auto;
+            transform: translate(0%, 3.625%);
+            overflow: hidden;
+        }
+        th {
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="boarddiv" id="boarddiv">
+        <table class="board">
+            <tbody>
+                <tr>
+                    <th class="b" onclick="peiceclick(1)" id="spot1"><img id="img1"></th>
+                    <th class="w" onclick="peiceclick(2)" id="spot2"><img id="img2"></th>
+                    <th class="b" onclick="peiceclick(3)" id="spot3"><img id="img3"></th>
+                    <th class="w" onclick="peiceclick(4)" id="spot4"><img id="img4"></th>
+                    <th class="b" onclick="peiceclick(5)" id="spot5"><img id="img5"></th>
+                    <th class="w" onclick="peiceclick(6)" id="spot6"><img id="img6"></th>
+                    <th class="b" onclick="peiceclick(7)" id="spot7"><img id="img7"></th>
+                    <th class="w" onclick="peiceclick(8)" id="spot8"><img id="img8"></th>
+                </tr>
+                <tr>
+                    <th class="w" onclick="peiceclick(9)" id="spot9"><img id="img9"></th>
+                    <th class="b" onclick="peiceclick(10)" id="spot10"><img id="img10"></th>
+                    <th class="w" onclick="peiceclick(11)" id="spot11"><img id="img11"></th>
+                    <th class="b" onclick="peiceclick(12)" id="spot12"><img id="img12"></th>
+                    <th class="w" onclick="peiceclick(13)" id="spot13"><img id="img13"></th>
+                    <th class="b" onclick="peiceclick(14)" id="spot14"><img id="img14"></th>
+                    <th class="w" onclick="peiceclick(15)" id="spot15"><img id="img15"></th>
+                    <th class="b" onclick="peiceclick(16)" id="spot16"><img id="img16"></th>
+                </tr>
+                <tr>
+                    <th class="b" onclick="peiceclick(17)" id="spot17"><img id="img17"></th>
+                    <th class="w" onclick="peiceclick(18)" id="spot18"><img id="img18"></th>
+                    <th class="b" onclick="peiceclick(19)" id="spot19"><img id="img19"></th>
+                    <th class="w" onclick="peiceclick(20)" id="spot20"><img id="img20"></th>
+                    <th class="b" onclick="peiceclick(21)" id="spot21"><img id="img21"></th>
+                    <th class="w" onclick="peiceclick(22)" id="spot22"><img id="img22"></th>
+                    <th class="b" onclick="peiceclick(23)" id="spot23"><img id="img23"></th>
+                    <th class="w" onclick="peiceclick(24)" id="spot24"><img id="img24"></th>
+                </tr>
+                <tr>
+                    <th class="w" onclick="peiceclick(25)" id="spot25"><img id="img25"></th>
+                    <th class="b" onclick="peiceclick(26)" id="spot26"><img id="img26"></th>
+                    <th class="w" onclick="peiceclick(27)" id="spot27"><img id="img27"></th>
+                    <th class="b" onclick="peiceclick(28)" id="spot28"><img id="img28"></th>
+                    <th class="w" onclick="peiceclick(29)" id="spot29"><img id="img29"></th>
+                    <th class="b" onclick="peiceclick(30)" id="spot30"><img id="img30"></th>
+                    <th class="w" onclick="peiceclick(31)" id="spot31"><img id="img31"></th>
+                    <th class="b" onclick="peiceclick(32)" id="spot32"><img id="img32"></th>
+                </tr>
+                <tr>
+                    <th class="b" onclick="peiceclick(33)" id="spot33"><img id="img33"></th>
+                    <th class="w" onclick="peiceclick(34)" id="spot34"><img id="img34"></th>
+                    <th class="b" onclick="peiceclick(35)" id="spot35"><img id="img35"></th>
+                    <th class="w" onclick="peiceclick(36)" id="spot36"><img id="img36"></th>
+                    <th class="b" onclick="peiceclick(37)" id="spot37"><img id="img37"></th>
+                    <th class="w" onclick="peiceclick(38)" id="spot38"><img id="img38"></th>
+                    <th class="b" onclick="peiceclick(39)" id="spot39"><img id="img39"></th>
+                    <th class="w" onclick="peiceclick(40)" id="spot40"><img id="img40"></th>
+                </tr>
+                <tr>
+                    <th class="w" onclick="peiceclick(41)" id="spot41"><img id="img41"></th>
+                    <th class="b" onclick="peiceclick(42)" id="spot42"><img id="img42"></th>
+                    <th class="w" onclick="peiceclick(43)" id="spot43"><img id="img43"></th>
+                    <th class="b" onclick="peiceclick(44)" id="spot44"><img id="img44"></th>
+                    <th class="w" onclick="peiceclick(45)" id="spot45"><img id="img45"></th>
+                    <th class="b" onclick="peiceclick(46)" id="spot46"><img id="img46"></th>
+                    <th class="w" onclick="peiceclick(47)" id="spot47"><img id="img47"></th>
+                    <th class="b" onclick="peiceclick(48)" id="spot48"><img id="img48"></th>
+                </tr>
+                <tr>
+                    <th class="b" onclick="peiceclick(49)" id="spot49"><img id="img49"></th>
+                    <th class="w" onclick="peiceclick(50)" id="spot50"><img id="img50"></th>
+                    <th class="b" onclick="peiceclick(51)" id="spot51"><img id="img51"></th>
+                    <th class="w" onclick="peiceclick(52)" id="spot52"><img id="img52"></th>
+                    <th class="b" onclick="peiceclick(53)" id="spot53"><img id="img53"></th>
+                    <th class="w" onclick="peiceclick(54)" id="spot54"><img id="img54"></th>
+                    <th class="b" onclick="peiceclick(55)" id="spot55"><img id="img55"></th>
+                    <th class="w" onclick="peiceclick(56)" id="spot56"><img id="img56"></th>
+                </tr>
+                <tr>
+                    <th class="w" onclick="peiceclick(57)" id="spot57"><img id="img57"></th>
+                    <th class="b" onclick="peiceclick(58)" id="spot58"><img id="img58"></th>
+                    <th class="w" onclick="peiceclick(59)" id="spot59"><img id="img59"></th>
+                    <th class="b" onclick="peiceclick(60)" id="spot60"><img id="img60"></th>
+                    <th class="w" onclick="peiceclick(61)" id="spot61"><img id="img61"></th>
+                    <th class="b" onclick="peiceclick(62)" id="spot62"><img id="img62"></th>
+                    <th class="w" onclick="peiceclick(63)" id="spot63"><img id="img63"></th>
+                    <th class="b" onclick="peiceclick(64)" id="spot64"><img id="img64"></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="stats">
+        <div class="caistats">
+            <p>CAI</p>
+        </div>
+        <div class="playerstats">
+            <p>PLAYER</p>
+        </div>
+    </div>
+    <script>
+    alert("loaded")
+    let board = ["brook","bknight","bbishop","bqueen","bking","bbishop","bknight","brook","bpawn","bpawn","bpawn","bpawn","bpawn","bpawn","bpawn","bpawn","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","wpawn","wpawn","wpawn","wpawn","wpawn","wpawn","wpawn","wpawn","wrook","wknight","wbishop","wqueen","wking","wbishop","wknight","wrook"]
+    let peices = ["rook","knight","bishop","queen","king","pawn"]
+    let avaiblemoves = []
+    let ispieceselected = false
+    let peicecords
+    alert("setup")
+    //0 is white and 1 is black
+    let turn = 0
+    function updateboard () {
+        document.getElementById("boarddiv").style.width = document.getElementById("boarddiv").style.height
+        for (let index = 1; index <= board.length; index++) {
+            document.getElementById("img"+index).src = "Assets/"+board[index-1]+".png"
+            //if (!(true)) {
+                //document.getElementById("img"+index).style.backgroundColor = "green"
+            //} else {
+                //document.getElementById("img"+index).style.backgroundColor = "none"
+            //}
+            if (board[index-1] === "none") {
+                document.getElementById("img"+index).style.opacity = 0;
+            }
+        }
+    }
+    function calcxy (p) {
+        x = p-(Math.floor((p-1)/8)*8)
+        y = Math.floor((p-1)/8)+1
+        return ((10*x)+y)
+    }
+    let movecords
+    function trytomovesfor (p) {
+        peicecords = calcxy(p)
+        if (p === "rook") {
+            for (let index = 0; index <= board.length; index++) {
+                movecords = calcxy(index+1)
+                if (peicecords.charAt(0)===movecords.charAt(0) && peicecords.charAt(1)===movecords.charAt(1)) {
+                    avaiblemoves.push(index)
+                }
+            }
+        }
+    }
+    setInterval(updateboard, 10)
+    function peiceclick (p) {
+        //check avaible moves
+        avaiblemoves = []
+        if (turn === 0) {
+            ispieceselected = true
+            if (board[p-1].includes("rook") && ispieceselected) {
+                alert("yes")
+                trytomovesfor(p)
+            }
+        } else {
+            ispieceselected = false
+        }
+    }
+    let x = 0
+    let y = 0
+    function calcxy (p) {
+        x = p-(Math.floor((p-1)/8)*8)
+        y = Math.floor((p-1)/8)+1
+        return ((10*x)+y)
+    }
+    function undocalcxy (xy) {
+        return xy.charAt(0)+(xy.charAt(1)*8)
+    }
+    function canattack (peice, target, type) {
+        if (type === "rook") {
+            if (peice.charAt(0) > target.charAt(0)) {
+                let offset = [1,0]
+            }
+            let hityet = false
+            for (let index = 1; index < 7; index++) { 
+                if ((piece.charAt(0)+(offset[0]*index) === target.charAt(0) && piece.charAt(1)+(offset[1]*index) === target.charAt(1) && !hityet)||(false)) {
+                    avaiablemoves.push(undocalcxy(piece.charAt(0)+(offset[0]*index)))
+                }
+            }
+        }
+    }
+    updateboard()
+    </script>
+</body>
+</html>
