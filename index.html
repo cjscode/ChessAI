@@ -196,8 +196,18 @@
             //}
             if (board[index-1] === "none") {
                 document.getElementById("img"+index).style.opacity = 0;
-            }
+            } 
+            //if (avaiablemoves[index-1] === "y") {
+                //document.getElementById("spot"+index).style.backgroundColor = bgcolorforspot(index-1) 
+            //}
         }
+    }
+    function bgcolorforspot (s) {
+        //if (document.getElementById(s).class === "b") {
+            //return "darkgreen"
+        //} else {
+            //return "lightgreen"
+        //}
     }
     function calcxy (p) {
         x = p-(Math.floor((p-1)/8)*8)
@@ -210,9 +220,6 @@
         if (p === "rook") {
             for (let index = 0; index <= board.length; index++) {
                 movecords = calcxy(index+1)
-                if (peicecords.charAt(0)===movecords.charAt(0) && peicecords.charAt(1)===movecords.charAt(1)) {
-                    avaiblemoves.push(index)
-                }
             }
         }
     }
@@ -240,15 +247,17 @@
     function undocalcxy (xy) {
         return xy.charAt(0)+(xy.charAt(1)*8)
     }
-    function canattack (peice, target, type) {
-        if (type === "rook") {
+    function canattack (peice, target) {
+        if (board[peice].includes("rook")) {
             if (peice.charAt(0) > target.charAt(0)) {
                 let offset = [1,0]
             }
             let hityet = false
             for (let index = 1; index < 7; index++) { 
                 if ((piece.charAt(0)+(offset[0]*index) === target.charAt(0) && piece.charAt(1)+(offset[1]*index) === target.charAt(1) && !hityet)||(false)) {
-                    avaiablemoves.push(undocalcxy(piece.charAt(0)+(offset[0]*index)))
+                    avaiablemoves.push("y")
+                } else {
+                    avaiablemoves.push("")
                 }
             }
         }
