@@ -189,23 +189,18 @@
         document.getElementById("boarddiv").style.width = document.getElementById("boarddiv").style.height
         for (let index = 1; index <= board.length; index++) {
             document.getElementById("img"+index).src = "Assets/"+board[index-1]+".png"
-            //if (!(true)) {
-                //document.getElementById("img"+index).style.backgroundColor = "green"
-            //} else {
-                //document.getElementById("img"+index).style.backgroundColor = "none"
-            //}
             if (board[index-1] === "none") {
                 document.getElementById("img"+index).style.opacity = 0;
             } 
-            //if (avaiablemoves[index-1] === "y") {
-                //document.getElementById("spot"+index).style.backgroundColor = bgcolorforspot(index, true) 
-            //} //else {
+            if (avaiblemoves[index-1] === "y") {
+                document.getElementById("spot"+index).style.backgroundColor = bgcolorforspot(index, true) 
+            } else {
                 document.getElementById("spot"+index).style.backgroundColor = bgcolorforspot(index, false)
-            //}
+            }
         }
     }
     function bgcolorforspot (s, a) {
-        if (Math.round(Math.random())=== 1 || a) {
+        if (a) {
             if (document.getElementById("spot"+s).getAttribute("class") === "b") {
                 return "darkgreen"
             } else {
@@ -228,12 +223,10 @@
     function trytomovesfor (p) {
         peicecords = calcxy(p)
         if (p === "rook") {
-            for (let index = 0; index <= board.length; index++) {
-                movecords = calcxy(index+1)
-            }
+            //yeah idk what to do
         }
     }
-    setInterval(updateboard, 250)
+    setInterval(updateboard, 25)
     //Init on peice clicked
     function peiceclick (p) {
         //check avaible moves
@@ -258,25 +251,10 @@
     function undocalcxy (xy) {
         return xy.charAt(0)+(xy.charAt(1)*8)
     }
-    function canattack (peice, target) {
-        if (board[peice].includes("rook")) {
-            if (peice.charAt(0) > target.charAt(0)) {
-                let offset = [1,0]
-            }
-            let hityet = false
-            for (let index = 1; index < 7; index++) { 
-                if ((piece.charAt(0)+(offset[0]*index) === target.charAt(0) && piece.charAt(1)+(offset[1]*index) === target.charAt(1) && !hityet)||(false)) {
-                    avaiablemoves.push("y")
-                } else {
-                    avaiablemoves.push("")
-                }
-            }
-        }
-    }
     updateboard()
     /*
     * TO DO:
-    * - visualizing allowed moves (idk y it isnt working)
+    * - visualizing allowed moves (DONE :D)
     * - checking for allowed moves (working on it)
     * - the actual ai part (nothing)
     * - caistats and playerstats (basically nothing)
