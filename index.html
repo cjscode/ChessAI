@@ -198,16 +198,26 @@
                 document.getElementById("img"+index).style.opacity = 0;
             } 
             //if (avaiablemoves[index-1] === "y") {
-                //document.getElementById("spot"+index).style.backgroundColor = bgcolorforspot(index-1) 
+                //document.getElementById("spot"+index).style.backgroundColor = bgcolorforspot(index, true) 
+            //} //else {
+                document.getElementById("spot"+index).style.backgroundColor = bgcolorforspot(index, false)
             //}
         }
     }
-    function bgcolorforspot (s) {
-        //if (document.getElementById(s).class === "b") {
-            //return "darkgreen"
-        //} else {
-            //return "lightgreen"
-        //}
+    function bgcolorforspot (s, a) {
+        if (Math.round(Math.random())=== 1 || a) {
+            if (document.getElementById("spot"+s).getAttribute("class") === "b") {
+                return "darkgreen"
+            } else {
+                return "lightgreen"
+            }
+        } else {
+            if (document.getElementById("spot"+s).getAttribute("class") === "b") {
+                return "#404040"
+            } else {
+                return "white"
+            }
+        }
     }
     function calcxy (p) {
         x = p-(Math.floor((p-1)/8)*8)
@@ -223,7 +233,8 @@
             }
         }
     }
-    setInterval(updateboard, 10)
+    setInterval(updateboard, 250)
+    //Init on peice clicked
     function peiceclick (p) {
         //check avaible moves
         avaiblemoves = []
@@ -263,6 +274,15 @@
         }
     }
     updateboard()
+    /*
+    * TO DO:
+    * - visualizing allowed moves (idk y it isnt working)
+    * - checking for allowed moves (working on it)
+    * - the actual ai part (nothing)
+    * - caistats and playerstats (basically nothing)
+    * - resize from device to device (sort of done)
+    * - probably more that i cant think of rn
+    */
     </script>
 </body>
 </html>
