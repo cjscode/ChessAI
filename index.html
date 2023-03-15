@@ -178,7 +178,7 @@
     <script>
     alert("loaded")
     let board = ["brook","bknight","bbishop","bqueen","bking","bbishop","bknight","brook","bpawn","bpawn","bpawn","bpawn","bpawn","bpawn","bpawn","bpawn","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","wpawn","wpawn","wpawn","wpawn","wpawn","wpawn","wpawn","wpawn","wrook","wknight","wbishop","wqueen","wking","wbishop","wknight","wrook"]
-    let peices = ["rook","knight","bishop","queen","king","pawn"]
+    const peices = ["rook","knight","bishop","queen","king","pawn"]
     let avaiblemoves = []
     let ispieceselected = false
     let peicecords
@@ -219,11 +219,29 @@
         y = Math.floor((p-1)/8)+1
         return ((10*x)+y)
     }
-    let movecords
-    function trytomovesfor (p) {
-        peicecords = calcxy(p)
-        if (p === "rook") {
-            //yeah idk what to do
+    //peice offsets
+    const offset = {
+        rook:[-1,0,0,-1,1,0,0,1],
+        bishop:[-1,-1,1,-1,1,1,1,-1],
+        knight:[-1,-2,-2,-1,-2,1,-1,2,1,2,2,1,2,-1,1,-2],
+        pawn:[-1,1,0,1,1,1],
+        queen:[-1,1,0,1,1,1,1,0,1,-1,0,-1,-1,-1,-1,0],
+        king:[-1,1,0,1,1,1,1,0,1,-1,0,-1,-1,-1,-1,0]
+    }
+    function getmovedir (idx) {
+
+    }
+    function findmovesfor (p) {
+        let piececords = calcxy(p)
+        let peicetype
+        if (board[p-1].includes("rook")) {
+            peicetype = "rook"
+            let moverays = offset.rook.length/2
+            let disttowall
+            for (let index = 1; index < moverays; index++) {
+                getmovedir(index)
+                for (let iindex = 1; iindex < disttowalll; iindex++)
+            }
         }
     }
     setInterval(updateboard, 25)
@@ -235,7 +253,7 @@
             ispieceselected = true
             if (board[p-1].includes("rook") && ispieceselected) {
                 alert("yes")
-                trytomovesfor(p)
+                findmovesfor(p)
             }
         } else {
             ispieceselected = false
@@ -255,7 +273,7 @@
     /*
     * TO DO:
     * - visualizing allowed moves (DONE :D)
-    * - checking for allowed moves (working on it)
+    * - checking for allowed moves (getting closer)
     * - the actual ai part (nothing)
     * - caistats and playerstats (basically nothing)
     * - resize from device to device (sort of done)
