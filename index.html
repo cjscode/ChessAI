@@ -239,17 +239,18 @@
     function getmovedist (idx, pt, crds) {
         //rook
         if (pt === "rook") {
-            if (idx === 1) {
+            if (idx === 0) {
                 return crds.toString().charAt(0)-1
             } else if (idx === 2) {
                 return crds.toString().charAt(1)-1
-            } else if (idx === 3) {
-                return 8-crds.toString().charAt(0)
             } else if (idx === 4) {
+                return 8-crds.toString().charAt(0)
+            } else if (idx === 6) {
                 return 8-crds.toString().charAt(1)
             } else {
-                console.log("ERROR ON GETMOVEDIST ROOK")
-                console.log("IDX = "+idx)
+                alert("ERROR ON GETMOVEDIST ROOK")
+                alert("IDX = "+idx)
+                return 0
             }
         //bishop
         } else if (pt === "bishop") {
@@ -278,8 +279,8 @@
                     return 8-crds.toString().charAt(1)
                 }
             } else {
-                console.log("ERROR ON GETMOVEDIST BISHOP")
-                console.log("IDX = "+idx)
+                alert("ERROR ON GETMOVEDIST BISHOP")
+                alert("IDX = "+idx)
             }
         //im not going to do knight rn :)
         } else if (pt === "knight") {
@@ -298,16 +299,18 @@
             peicetype = "rook"
             let moverays = offset["rook"].length
             let disttowall
+            let hityet
             //index is dir
-            for (let index = 1; index < moverays; index++) {
-                disttowall = getmovedist(index, peicetype, peicecords)
-                let hityet = false
+            for (let index = 1; index <= moverays; index++) {
+                disttowall = getmovedist(index-1, "rook", calcxy(p))
+                hityet = false
                 let movetype
                 let movecords
                 //iindex is dist from peice
                 for (let iindex = 1; iindex < disttowall; iindex++) {
                     movecords = undocalcxy(peicecords+(offset["rook"][-1+index]*10*iindex)+(offset["rook"][index]*iindex))//(peicecords+(offset["rook"][-1+index]*10*iindex)+(offset["rook"][0+index]*iindex)))
                     movetype = board[movecords]
+                    //alert("hit?"+hityet+",dir:"+index+",dist:"+iindex)
                     if (!(hityet)) {
                         avaiblemoves[movecords-1] = true
                         if (!(movetype === "none")) {
@@ -321,16 +324,26 @@
             }
         }
     }
+    let peiceselected = ""
     setInterval(updateboard, 25)
     //on peice clicked
     function peiceclick (p) {
         //check avaible moves
-        resetmoves()
-        if (turn === 0) {
+        if (turn === 0 && peiceselected === "") {
+            resetmoves()
             findmovesfor(p)
-        } else {
-            //hi there :)
+            peiceselected = p
+        } else if (!(peiceselected === "")) {
+            move(peiceselected, p)
         }
+    }
+    function move (ps, pm) {
+        if (avaiblemoves[pm-1]) {
+            board[pm-1] = board[ps-1] 
+            board[ps-1] = "none"
+        }
+        peiceselected = ""
+        resetmoves()
     }
     let x = 0
     let y = 0
