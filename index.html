@@ -178,6 +178,7 @@
     //setup
     let board = ["brook","bknight","bbishop","bqueen","bking","bbishop","bknight","brook","bpawn","bpawn","bpawn","bpawn","bpawn","bpawn","bpawn","bpawn","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","wpawn","wpawn","wpawn","wpawn","wpawn","wpawn","wpawn","wpawn","wrook","wknight","wbishop","wqueen","wking","wbishop","wknight","wrook"]
     let avaiblemoves = []
+    //resets allowed moves
     function resetmoves () {
         avaiblemoves = []
         for (let index = 0; index < 64; index++) {
@@ -290,7 +291,7 @@
             }
         }
     }
-    //finds move for peice
+    //finds moves for peice
     function findmovesfor (p) {
         resetmoves()
         let peicecords = calcxy(p)
@@ -311,7 +312,6 @@
                 for (let iindex = 1; iindex < disttowall; iindex++) {
                     movecords = undocalcxy(peicecords+(offset["rook"][-1+index]*10*iindex)+(offset["rook"][index]*iindex))//(peicecords+(offset["rook"][-1+index]*10*iindex)+(offset["rook"][0+index]*iindex)))
                     movetype = board[movecords]
-                    //alert("hit?"+hityet+",dir:"+index+",dist:"+iindex)
                     if (!(hityet)) {
                         avaiblemoves[movecords-1] = true
                         if (!(movetype === "none")) {
@@ -324,6 +324,7 @@
                 index++
             }
         }
+        alert(avaiblemoves)
     }
     let peiceselected = ""
     setInterval(updateboard, 25)
@@ -338,22 +339,25 @@
             move(peiceselected, p)
         }
     }
+    //moves peice to selected index
     function move (ps, pm) {
         if (avaiblemoves[pm-1] && !(ps === pm)) {
             board[pm-1] = board[ps-1] 
             board[ps-1] = "none"
-            turn = 1
+            //turn = 1
         }
         peiceselected = ""
         resetmoves()
     }
     let x = 0
     let y = 0
+    //calculates the x and y of a index
     function calcxy (p) {
         x = p-(Math.floor((p-1)/8)*8)
         y = Math.floor((p-1)/8)+1
         return ((10*x)+y)
     }
+    //undoes the function above
     function undocalcxy (xy) {
         xy = xy.toString()
         return parseInt(xy.charAt(0))+parseInt(((xy.charAt(1)-1)*8))
